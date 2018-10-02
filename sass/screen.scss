@@ -1,0 +1,36 @@
+@import "compass/css3/font-face";
+
+/*** BASE SIZES ***/
+.container { font-size: 1.2em; line-height: 1.6em; }
+h1, .h1 { font-size: 1.9em; }
+h2, .h2 { font-size: 1.7em; }
+h3, .h3 { font-size: 1.5em; }
+h4, .h4 { font-size: 1.3em; }
+h5, .h5 { font-size: 1.2em; }
+h6, .h6 { font-size: 1em; }
+
+/**************************************/
+/*              GLOBALS               */
+/**************************************/
+
+@include font-face("spellbook", font-files(
+  "spellbook/spellbook-webfont.woff",
+  "spellbook/spellbook-webfont.ttf",
+  "spellbook/spellbook-webfont.svg"
+), "spellbook/spellbook-webfont.eot");
+
+@include font-face("Freebooter Script", font-files(
+  "freebooter/web_fonts/freebooterscript_regular_ubasic/freebooterscript-webfont.woff",
+  "freebooter/web_fonts/freebooterscript_regular_ubasic/freebooterscript-webfont.ttf",
+  "freebooter/web_fonts/freebooterscript_regular_ubasic/freebooterscript-webfont.svg"
+), "freebooter/web_fonts/freebooterscript_regular_ubasic/freebooterscript-webfont.eot");
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background-color: #000000;
+  color: #FFFFFF;
+}

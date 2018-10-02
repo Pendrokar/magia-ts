@@ -1,0 +1,192 @@
+// @import "compass";
+@import "compass/css3/border-radius";
+@import "compass/css3/images";
+@import "compass/css3/filter";
+@import "compass/css3/transform";
+
+.wrapper {
+	height: 100%;
+	height: auto !important;
+	margin: 0 0 -50px;
+	min-height: 100%;
+	text-align: center;
+}
+
+.container {
+	padding-top: 2em;
+}
+
+.footer, .push {
+	height: 50px;
+	line-height: 50px;
+}
+
+.cipher {
+	font-family: "spellbook";
+	font-style: normal;
+	font-weight: normal;
+	text-transform: uppercase;
+
+	&.h1 {
+		line-height: 150%;
+	}
+}
+
+.minor-push {
+	margin-bottom: 3em;
+}
+
+.major-push {
+	margin-bottom: 6em;
+}
+
+/**************************************/
+/*              HEADER                */
+/**************************************/
+
+
+.title {
+	font-family: "Freebooter Script";
+	letter-spacing: 0.2em;
+	margin-top: 0;
+}
+
+
+/**************************************/
+/*            MAIN CONTENT            */
+/**************************************/
+
+.scroll {
+	margin: 0 auto;
+	width: 1000px;
+
+	.scroll-top,
+	.scroll-content,
+	.scroll-bottom {
+		background-position: 0 0;
+		background-repeat: repeat-y;
+		position: relative;
+	}
+
+	.scroll-top,
+	.scroll-bottom {
+		background-image: image-url("scrollbar.jpg");
+		@include border-radius(5px);
+
+		.shadow {
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 150%;
+			width: 100%;
+		}
+	}
+
+	.scroll-top {
+		height: 120px;
+		z-index: 1;
+
+		.shadow {
+			// Permalink - use to edit and share this gradient:
+			// http://colorzilla.com/gradient-editor/#ffffff+30,000000+66&0+15,0.6+27,0.6+30,0+40,0.7+66,0.57+80,0+100
+			@include background-image(linear-gradient(
+				top,
+				rgba(255,255,255,0) 15%,
+				rgba(255,255,255,0.6) 27%,
+				rgba(255,255,255,0.6) 30%,
+				rgba(184,184,184,0) 40%,
+				rgba(0,0,0,0.7) 66%,
+				rgba(0,0,0,0.57) 80%,
+				rgba(0,0,0,0) 107% // >100 webkit bug
+			));
+			height: 150%;
+		}
+	}
+
+	.scroll-content {
+		.quote {
+			font-style: italic;
+		}
+	}
+
+	.scroll-view {
+		height: 0;
+		margin: -5px 0; // to hide border radius of top and bottom.
+		overflow-x: hidden;
+		overflow-y: -moz-scrollbars-none;
+		z-index: 0;
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
+
+		.player {
+			clear: both;
+			@include filter(sepia(100%));
+			-webkit-mask-box-image: image-url("vignette-mask.png") 75 stretch;
+		}
+	}
+
+	.scroll-content {
+		background-image: image-url("scroll_cut.jpg");
+		color: #000000;
+		font-family: cursive, serif;
+		overflow: hidden;
+		padding: 6% 12%;
+
+		a,
+		a:link,
+		a:visited,
+		a:hover {
+			color: #000000;
+		}
+
+		a:hover {
+			text-decoration: none;
+		}
+
+		.page {
+			background: image-url("old_page_cut.jpg");
+			// background-image: url(../images/old_page_cut.svg?1503741235); // wanted to merge with edges with all the different perspectives
+			height: 1598px;
+			left: 0;
+			position: absolute;
+			width: 1000px;
+			z-index: -1;
+		}
+
+		.page.type-1 {
+			top: 0;
+		}
+
+		.page.type-2 {
+			@include scaleY(-1);
+			top: 1568px;
+		}
+	}
+
+	.scroll-bottom {
+		height: 120px;
+		z-index: 1;
+
+		.shadow {
+			// Permalink - use to edit and share this gradient:
+			// http://colorzilla.com/gradient-editor/#ffffff+25,000000+100&0+6,0.6+22,0.45+37,0+50,0.7+100
+			@include background-image(linear-gradient(top,  rgba(255,255,255,0) 6%,rgba(255,255,255,0.6) 22%,rgba(255,255,255,0.57) 25%,rgba(214,214,214,0.45) 37%,rgba(170,170,170,0) 50%,rgba(0,0,0,0.7) 100%));
+
+			height: 100%;
+		}
+	}
+}
+
+/**************************************/
+/*               FOOTER               */
+/**************************************/
+
+.footer {
+	text-align: center;
+
+	img {
+		vertical-align: middle;
+	}
+}
