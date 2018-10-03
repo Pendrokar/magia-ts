@@ -58,7 +58,7 @@ export class VideoPlayer {
 	//    the player should play for six seconds and then stop.
 	onPlayerStateChange(event : YT.OnStateChangeEvent) : void {
 		// Repeat playing
-		if (event.data == YT.PlayerState.ENDED) {
+		if (event.data == YT.PlayerState.ENDED && this.videoPlayerIframe.id.indexOf('References') != -1) {
 			this.videoPlayer.seekTo(this.startTime, true);
 			this.videoPlayer.playVideo();
 		}

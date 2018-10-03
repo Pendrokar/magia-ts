@@ -28,7 +28,14 @@
 	text-transform: uppercase;
 
 	&.h1 {
-		line-height: 150%;
+		left: 0;
+		letter-spacing: .2em;
+		margin: 0 1em;
+		position: absolute;
+		text-orientation: upright;
+		top: 1.65em;
+		white-space: nowrap;
+		writing-mode: vertical-rl;
 	}
 }
 

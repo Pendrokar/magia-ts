@@ -8,6 +8,7 @@ System.register([], function (exports_1, context_1) {
             VideoPlayer = class VideoPlayer {
                 constructor(tagId) {
                     this.startTime = 0;
+                    this.userInteracted = false; // User has to interact beforehand in order to unmute videos
                     this.scrollTimer = -1;
                     this.videoPlayerID = tagId;
                     this.playerSettings = {
@@ -38,8 +39,8 @@ System.register([], function (exports_1, context_1) {
                     }
                     // Unmute/Mute on hover
                     $(this.videoPlayerIframe)
-                        .on('mouseenter', (event) => this.onRefPlayerMouseOver())
-                        .on('mouseleave', (event) => this.onRefPlayerMouseOut());
+                        .on('mouseenter', (event) => this.onPlayerMouseOver())
+                        .on('mouseleave', (event) => this.onPlayerMouseOut());
                     // TODO: move to service
                     $('.scroll-view').on('scroll', (event) => this.onScrollTimer());
                 }
@@ -48,9 +49,19 @@ System.register([], function (exports_1, context_1) {
                 //    the player should play for six seconds and then stop.
                 onPlayerStateChange(event) {
                     // Repeat playing
-                    if (event.data == YT.PlayerState.ENDED) {
+                    if (event.data == YT.PlayerState.ENDED && this.videoPlayerIframe.id.indexOf('References') != -1) {
                         this.videoPlayer.seekTo(this.startTime, true);
                         this.videoPlayer.playVideo();
+                    }
+                    else {
+                        if (this.userInteracted) {
+                            return;
+                        }
+                        if (this.videoPlayer.getPlayerState() == YT.PlayerState.PAUSED) {
+                            this.userInteracted = true;
+                            this.videoPlayer.playVideo();
+                            this.videoPlayer.unMute();
+                        }
                     }
                 }
                 checkPlayerVisibility() {
@@ -59,7 +70,6 @@ System.register([], function (exports_1, context_1) {
                     // }
                     try {
                         if ($(this.videoPlayerIframe).visible(false, true, "both", $("#scroll-view"))) {
-                            // && !done
                             this.videoPlayer.mute();
                             this.videoPlayer.playVideo();
                         }
@@ -73,19 +83,16 @@ System.register([], function (exports_1, context_1) {
                     }
                 }
                 onPlayerMouseOver() {
-                    this.videoPlayer.playVideo();
+                    // check, so not to pause instead
+                    if (this.userInteracted) {
+                        this.videoPlayer.unMute();
+                    }
                 }
                 onPlayerMouseOut() {
-                    this.videoPlayer.pauseVideo();
-                }
-                onRefPlayerMouseOver() {
-                    this.videoPlayer.unMute();
-                }
-                onRefPlayerMouseOut() {
-                    this.videoPlayer.mute();
-                }
-                stopVideo(event) {
-                    this.videoPlayer.stopVideo();
+                    // check, so not to pause instead
+                    if (this.userInteracted) {
+                        this.videoPlayer.mute();
+                    }
                 }
             };
             exports_1("VideoPlayer", VideoPlayer);
