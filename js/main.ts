@@ -2,22 +2,28 @@ import { Scroller } from './scroll.js';
 import { VideoPlayer } from './video-player';
 
 SystemJS.config({
-  map: {
-	youtube: "https://www.youtube.com/iframe_api"
-  },
-  meta: {
-	"https://www.youtube.com/iframe_api": {
-	  "format": "global",
-	  "exports": "youtube",
-	  "scriptLoad": true,
-	  "build": false
+	map: {
+		youtube: "https://www.youtube.com/iframe_api"
+	},
+	meta: {
+		"https://www.youtube.com/iframe_api": {
+			"format": "global",
+			"exports": "youtube",
+			"scriptLoad": true,
+			"build": false
+		}
 	}
-  }
 });
+
+declare var youtube : string;
 
 new Scroller();
 
 export default class YouTubeService {
+	constructor() {
+		this.loadAPI();
+	}
+
 	async loadAPI() {
 		console.log('loadAPI');
 
@@ -45,17 +51,26 @@ export default class YouTubeService {
 		};
 
 		try {
-			await import('youtube'); // automatically injects a script tag
+			var tag = document.createElement('script');
+			tag.src = "https://www.youtube.com/iframe_api";
+			var firstScriptTag = document.getElementsByTagName('script')[0];
+			if (firstScriptTag.parentNode != null) {
+				firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+			}
+
+			// await import(youtube); // automatically injects a script tag
 			console.log('API loaded');
 		}
 		catch (e) {
-		  console.error('The YouTube API failed to load');
+			console.error('The YouTube API failed to load: ' + e);
 		}
 	}
 }
 
 declare global {
-  interface Window {
+	interface Window {
 	onYouTubeIframeAPIReady?: () => void;
-  }
+	}
 }
+
+new YouTubeService();

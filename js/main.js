@@ -20,8 +20,6 @@ System.register(["./scroll.js", "./video-player"], function (exports_1, context_
             }
         ],
         execute: function () {
-            // import 'systemjs';
-            // import 'youtube';
             SystemJS.config({
                 map: {
                     youtube: "https://www.youtube.com/iframe_api"
@@ -37,6 +35,9 @@ System.register(["./scroll.js", "./video-player"], function (exports_1, context_
             });
             new scroll_js_1.Scroller();
             YouTubeService = class YouTubeService {
+                constructor() {
+                    this.loadAPI();
+                }
                 loadAPI() {
                     return __awaiter(this, void 0, void 0, function* () {
                         console.log('loadAPI');
@@ -57,22 +58,23 @@ System.register(["./scroll.js", "./video-player"], function (exports_1, context_
                             new video_player_1.VideoPlayer('playerWillReferences');
                         };
                         try {
-                            // var tag = document.createElement('script');
-                            // tag.src = "https://www.youtube.com/iframe_api";
-                            // var firstScriptTag = document.getElementsByTagName('script')[0];
-                            // if (firstScriptTag.parentNode != null) {
-                            //	firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-                            // }
-                            // console.log('API loaded'); // this is shown on the console.
-                            // await import('youtube'); // automatically injects a script tag
+                            var tag = document.createElement('script');
+                            tag.src = "https://www.youtube.com/iframe_api";
+                            var firstScriptTag = document.getElementsByTagName('script')[0];
+                            if (firstScriptTag.parentNode != null) {
+                                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+                            }
+                            // await import(youtube); // automatically injects a script tag
+                            console.log('API loaded');
                         }
                         catch (e) {
-                            console.error('The YouTube API failed to load');
+                            console.error('The YouTube API failed to load: ' + e);
                         }
                     });
                 }
             };
             exports_1("default", YouTubeService);
+            new YouTubeService();
         }
     };
 });

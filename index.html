@@ -7,8 +7,9 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<link rel="stylesheet" href="./css/main.css" type="text/css" media="screen" />
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-visible/1.3.0-rc.1/jquery.visible.min.js"></script>
 </head>
 
 <body>
@@ -101,6 +102,20 @@
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.22/system.js"></script>
 	<script type="text/javascript">
 		System.defaultJSExtensions = true;
+
+		// SystemJS.config({
+		//   map: {
+		//	youtube: "https://www.youtube.com/iframe_api"
+		//   },
+		//   meta: {
+		//	"https://www.youtube.com/iframe_api": {
+		//	  "format": "global",
+		//	  "exports": "youtube",
+		//	  "scriptLoad": true,
+		//	  "build": false
+		//	}
+		//   }
+		// });
 
 		System.import("./js/main")
 	</script>
