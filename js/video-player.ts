@@ -3,6 +3,7 @@ export class VideoPlayer {
 	private videoPlayer : YT.Player;
 	private videoPlayerIframe : HTMLIFrameElement;
 	private startTime : number = 0;
+	private userInteracted : boolean = false; // User has to interact beforehand in order to unmute videos
 	private playerSettings : object;
 	private scrollTimer : number = -1;
 
@@ -45,8 +46,8 @@ export class VideoPlayer {
 
 		// Unmute/Mute on hover
 		$(this.videoPlayerIframe)
-			.on('mouseenter', (event) => this.onRefPlayerMouseOver())
-			.on('mouseleave', (event) => this.onRefPlayerMouseOut());
+			.on('mouseenter', (event) => this.onPlayerMouseOver())
+			.on('mouseleave', (event) => this.onPlayerMouseOut());
 
 		// TODO: move to service
 		$('.scroll-view').on('scroll', (event) => this.onScrollTimer());
@@ -61,6 +62,18 @@ export class VideoPlayer {
 			this.videoPlayer.seekTo(this.startTime, true);
 			this.videoPlayer.playVideo();
 		}
+		else
+		{
+			if (this.userInteracted) {
+				return;
+			}
+
+			if (this.videoPlayer.getPlayerState() == YT.PlayerState.PAUSED) {
+				this.userInteracted = true;
+				this.videoPlayer.playVideo();
+				this.videoPlayer.unMute();
+			}
+		}
 	}
 
 	checkPlayerVisibility() : void {
@@ -71,7 +84,6 @@ export class VideoPlayer {
 		try {
 			if($(this.videoPlayerIframe).visible(false, true, "both", $("#scroll-view")))
 			{
-				// && !done
 				this.videoPlayer.mute();
 				this.videoPlayer.playVideo();
 			}
@@ -87,23 +99,16 @@ export class VideoPlayer {
 	}
 
 	onPlayerMouseOver() : void {
-		this.videoPlayer.playVideo();
+		// check, so not to pause instead
+		if (this.userInteracted) {
+			this.videoPlayer.unMute();
+		}
 	}
 
 	onPlayerMouseOut() : void {
-		this.videoPlayer.pauseVideo();
+		// check, so not to pause instead
+		if (this.userInteracted) {
+			this.videoPlayer.mute();
+		}
 	}
-
-	onRefPlayerMouseOver() : void {
-		this.videoPlayer.unMute();
-	}
-
-	onRefPlayerMouseOut() : void {
-		this.videoPlayer.mute();
-	}
-
-	stopVideo(event : YT.OnStateChangeEvent) : void {
-		this.videoPlayer.stopVideo();
-	}
-
 }
