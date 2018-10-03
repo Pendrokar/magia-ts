@@ -60,4 +60,5 @@ typings/
 # sass
 .sass-cache
 
-public_files/
+# Sublime Text 3
+*.sublime-workspace

@@ -34,3 +34,11 @@ body {
   background-color: #000000;
   color: #FFFFFF;
 }
+
+a {
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+  }
+}

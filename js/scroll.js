@@ -9,6 +9,7 @@ System.register([], function (exports_1, context_1) {
                 constructor() {
                     // Assign variables:
                     // Declare variables:
+                    this.debug = false;
                     this.paperHeight = 1710;
                     this.viewHeight = 0;
                     this.scrollTopOffset = 240 - this.paperHeight;
@@ -26,13 +27,17 @@ System.register([], function (exports_1, context_1) {
                     $('.scroll-view')
                         .on('scroll', (event) => this.onScroll())
                         .trigger('scroll');
-                    console.log('Scroll manager ready');
+                    if (this.debug) {
+                        console.log('Scroll manager ready');
+                    }
                 }
                 onResize() {
                     this.viewHeight = $(window).height() - this.container.outerHeight() + this.viewHeight - this.footer.outerHeight();
                     this.scrollView
                         .height(this.viewHeight);
-                    console.log('Scroll manager: window resized');
+                    if (this.debug) {
+                        console.log('Scroll manager: window resized');
+                    }
                 }
                 onScroll() {
                     let scrollTopVal = this.scrollView.scrollTop();

@@ -1,5 +1,6 @@
 export class Scroller {
 	// Declare variables:
+	private debug : boolean = false;
 	private paperHeight : number = 1710;
 	private viewHeight : number = 0;
 	private scrollTopOffset : number = 240 - this.paperHeight;
@@ -30,7 +31,9 @@ export class Scroller {
 			.on('scroll', (event) => this.onScroll())
 			.trigger('scroll');
 
-		console.log('Scroll manager ready');
+		if (this.debug) {
+			console.log('Scroll manager ready');
+		}
 	}
 
 	onResize() : void {
@@ -38,7 +41,9 @@ export class Scroller {
 		this.scrollView
 			.height(this.viewHeight)
 
-		console.log('Scroll manager: window resized');
+		if (this.debug) {
+			console.log('Scroll manager: window resized');
+		}
 	}
 
 	onScroll() : void {

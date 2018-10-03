@@ -1,60 +1,61 @@
 import { Scroller } from './scroll.js';
-// import { VideoPlayer } from './video-player';
-// import 'systemjs';
-// import 'youtube';
+import { VideoPlayer } from './video-player';
 
-// SystemJS.config({
-//   map: {
-//	youtube: "https://www.youtube.com/iframe_api"
-//   },
-//   meta: {
-//	"https://www.youtube.com/iframe_api": {
-//	  "format": "global",
-//	  "exports": "youtube",
-//	  "scriptLoad": true,
-//	  "build": false
-//	}
-//   }
-// });
+SystemJS.config({
+  map: {
+	youtube: "https://www.youtube.com/iframe_api"
+  },
+  meta: {
+	"https://www.youtube.com/iframe_api": {
+	  "format": "global",
+	  "exports": "youtube",
+	  "scriptLoad": true,
+	  "build": false
+	}
+  }
+});
 
 new Scroller();
 
-// export default class YouTubeService {
-//	async loadAPI() {
-//		// on YouTube API load
-//		window.onYouTubeIframeAPIReady = function () {
-//			console.log('onYouTubeIframeAPIReady()');
+export default class YouTubeService {
+	async loadAPI() {
+		console.log('loadAPI');
 
-//			// Merlin Frik's Incantation introduction (blocked)
-//			// new VideoPlayer('playerIncantation');
+		// on YouTube API load
+		window.onYouTubeIframeAPIReady = function () {
+			console.log('onYouTubeIframeAPIReady()');
 
-//			// Incantation references
-//			new VideoPlayer('playerIncantationReferences');
+			// Merlin Frik's Incantation introduction
+			new VideoPlayer('playerIncantation');
 
-//			// Merlin Frik's Gestures introduction (blocked)
-//			// new VideoPlayer('playerGestures');
+			// Incantation references
+			new VideoPlayer('playerIncantationReferences');
 
-//			// Gesture references
-//			new VideoPlayer('playerGesturesReferences');
+			// Merlin Frik's Gestures introduction
+			new VideoPlayer('playerGestures');
 
-//			// Merlin Frik's Will introduction (blocked)
-//			// new VideoPlayer('playerWill');
+			// Gesture references
+			new VideoPlayer('playerGesturesReferences');
 
-//			// Will references
-//			new VideoPlayer('playerWillReferences');
-//		};
+			// Merlin Frik's Will introduction
+			new VideoPlayer('playerWill');
 
-//		try {
-//		  await import('youtube'); // automatically injects a script tag
-//		}
-//		catch (e) {
-//		  console.error('The YouTube API failed to load');
-//		}
-//	}
-// }
+			// Will references
+			new VideoPlayer('playerWillReferences');
+		};
 
-// declare global {
-//   interface Window {
-//	onYouTubeIframeAPIReady?: () => void;
-//   }
-// }
+		try {
+			await import('youtube'); // automatically injects a script tag
+			console.log('API loaded');
+		}
+		catch (e) {
+		  console.error('The YouTube API failed to load');
+		}
+	}
+}
+
+declare global {
+  interface Window {
+	onYouTubeIframeAPIReady?: () => void;
+  }
+}

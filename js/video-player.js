@@ -25,31 +25,6 @@ System.register([], function (exports_1, context_1) {
                         clearTimeout(this.scrollTimer);
                     this.scrollTimer = window.setTimeout("checkPlayerVisibility()", 150);
                 }
-                // // YouTube API
-                // onYouTubeIframeAPIReady() {
-                //	// Merlin Frik's Incantation introduction
-                //	playerIncantation = new YT.Player('playerIncantation', playerSettings);
-                //	playerIncantationReferences = new YT.Player('playerIncantationReferences', playerSettings);
-                //	// Merlin Frik's Gestures introduction
-                //	playerGestures = new YT.Player('playerGestures', playerSettings);
-                //	playerGesturesReferences = new YT.Player('playerGesturesReferences', playerSettings);
-                //	// Merlin Frik's Will introduction
-                //	playerWill = new YT.Player('playerWill', playerSettings);
-                //	playerWillReferences = new YT.Player('playerWillReferences', playerSettings);
-                //	// Play/Pause on hover
-                //	$([playerIncantation, playerGestures, playerWill]).each(function(){
-                //		$("#" + this.a.id)
-                //			.on('mouseenter', { YTPlayer: this }, onPlayerMouseOver)
-                //			.on('mouseleave', { YTPlayer: this }, onPlayerMouseOut);
-                //	});
-                //	// Unmute/Mute on hover
-                //	$([playerIncantationReferences, playerGesturesReferences, playerWillReferences]).each(function(){
-                //		$("#" + this.a.id)
-                //			.on('mouseenter', { YTPlayer: this }, this.onRefPlayerMouseOver)
-                //			.on('mouseleave', { YTPlayer: this }, this.onRefPlayerMouseOut);
-                //	});
-                //	$('.scroll-view').on('scroll', this.onScrollTimer);
-                // }
                 // The API will call this function when the video player is ready.
                 onPlayerReady() {
                     this.videoPlayer.setPlaybackQuality('small');
