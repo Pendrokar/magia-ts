@@ -20,14 +20,14 @@ System.register(["./scroll.js", "./video-player"], function (exports_1, context_
             }
         ],
         execute: function () {
-            System.config({
+            SystemJS.config({
                 map: {
                     youtubeIAPI: "https://www.youtube.com/iframe_api"
                 },
                 meta: {
                     "https://www.youtube.com/iframe_api": {
                         "format": "global",
-                        "exports": "youtubeIAPI",
+                        "exports": "YT",
                         "scriptLoad": true,
                         "build": false
                     }

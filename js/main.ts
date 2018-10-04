@@ -1,14 +1,14 @@
 import { Scroller } from './scroll.js';
 import { VideoPlayer } from './video-player';
 
-System.config({
+SystemJS.config({
 	map: {
 		youtubeIAPI: "https://www.youtube.com/iframe_api"
 	},
 	meta: {
 		"https://www.youtube.com/iframe_api": {
 			"format": "global",
-			"exports": "youtubeIAPI",
+			"exports": "YT",
 			"scriptLoad": true,
 			"build": false
 		}
