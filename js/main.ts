@@ -1,21 +1,19 @@
 import { Scroller } from './scroll.js';
 import { VideoPlayer } from './video-player';
 
-SystemJS.config({
+System.config({
 	map: {
-		youtube: "https://www.youtube.com/iframe_api"
+		youtubeIAPI: "https://www.youtube.com/iframe_api"
 	},
 	meta: {
 		"https://www.youtube.com/iframe_api": {
 			"format": "global",
-			"exports": "youtube",
+			"exports": "youtubeIAPI",
 			"scriptLoad": true,
 			"build": false
 		}
 	}
 });
-
-declare var youtube : string;
 
 new Scroller();
 
@@ -25,7 +23,7 @@ export default class YouTubeService {
 	}
 
 	async loadAPI() {
-		console.log('loadAPI');
+		// console.log('loadAPI');
 
 		// on YouTube API load
 		window.onYouTubeIframeAPIReady = function () {
@@ -51,15 +49,15 @@ export default class YouTubeService {
 		};
 
 		try {
-			var tag = document.createElement('script');
-			tag.src = "https://www.youtube.com/iframe_api";
-			var firstScriptTag = document.getElementsByTagName('script')[0];
-			if (firstScriptTag.parentNode != null) {
-				firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-			}
+			// var tag = document.createElement('script');
+			// tag.src = "https://www.youtube.com/iframe_api";
+			// var firstScriptTag = document.getElementsByTagName('script')[0];
+			// if (firstScriptTag.parentNode != null) {
+			//	firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+			// }
 
-			// await import(youtube); // automatically injects a script tag
-			console.log('API loaded');
+			await import('youtubeIAPI'); // automatically injects a script tag
+			// console.log('API loaded');
 		}
 		catch (e) {
 			console.error('The YouTube API failed to load: ' + e);
