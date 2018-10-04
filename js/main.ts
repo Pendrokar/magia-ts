@@ -25,29 +25,22 @@ export default class YouTubeService {
 	}
 
 	async loadAPI() {
-		console.log('loadAPI');
+		// console.log('loadAPI');
 
 		// on YouTube API load
 		window.onYouTubeIframeAPIReady = function () {
-			console.log('onYouTubeIframeAPIReady()');
+			let videoPlayers = [
+				'playerIncantation', // Merlin Frik's Incantation introduction
+				'playerIncantationReferences', // Incantation references
+				'playerGestures', // Merlin Frik's Gestures introduction
+				'playerGesturesReferences', // Gesture references
+				'playerWill', // Merlin Frik's Will introduction
+				'playerWillReferences' // Will references
+			]
 
-			// Merlin Frik's Incantation introduction
-			new VideoPlayer('playerIncantation');
-
-			// Incantation references
-			new VideoPlayer('playerIncantationReferences');
-
-			// Merlin Frik's Gestures introduction
-			new VideoPlayer('playerGestures');
-
-			// Gesture references
-			new VideoPlayer('playerGesturesReferences');
-
-			// Merlin Frik's Will introduction
-			new VideoPlayer('playerWill');
-
-			// Will references
-			new VideoPlayer('playerWillReferences');
+			for (var i in videoPlayers) {
+				new VideoPlayer(videoPlayers[i]);
+			}
 		};
 
 		try {
@@ -59,7 +52,7 @@ export default class YouTubeService {
 			}
 
 			// await import(youtube); // automatically injects a script tag
-			console.log('API loaded');
+			// console.log('API loaded');
 		}
 		catch (e) {
 			console.error('The YouTube API failed to load: ' + e);
