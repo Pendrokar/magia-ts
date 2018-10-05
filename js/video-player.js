@@ -32,25 +32,23 @@ System.register([], function (exports_1, context_1) {
                     this.startTime = this.videoPlayer.getCurrentTime();
                     this.videoPlayerIframe = this.videoPlayer.getIframe();
                     this.videoPlayer.setPlaybackQuality('small');
-                    // Mute non-reference videos
-                    if (this.videoPlayerIframe.id.indexOf('References') != -1) {
-                        this.videoPlayer.mute();
-                        this.checkPlayerVisibility();
-                    }
                     // Unmute/Mute on hover
                     $(this.videoPlayerIframe)
                         .on('mouseenter', (event) => this.onPlayerMouseOver())
                         .on('mouseleave', (event) => this.onPlayerMouseOut());
                     // TODO: move to service
                     $('.scroll-view').on('scroll', (event) => this.onScrollTimer());
+                    this.checkPlayerVisibility();
                 }
                 // The API calls this function when the player's state changes.
                 //    The function indicates that when playing a video (state=1),
                 //    the player should play for six seconds and then stop.
                 onPlayerStateChange(event) {
-                    // Repeat playing
-                    if (event.data == YT.PlayerState.ENDED && this.videoPlayerIframe.id.indexOf('References') != -1) {
-                        this.videoPlayer.seekTo(this.startTime, true);
+                    // Repeat playing intro videos
+                    if (event.data == YT.PlayerState.ENDED) {
+                        if (this.videoPlayerID.indexOf('References') == -1) {
+                            this.videoPlayer.seekTo(this.startTime, true);
+                        }
                         this.videoPlayer.playVideo();
                     }
                     else {
