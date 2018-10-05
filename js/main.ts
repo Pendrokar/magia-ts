@@ -1,9 +1,9 @@
 import { Scroller } from './scroll.js';
-import { VideoPlayer } from './video-player';
+import { VideoPlayer } from './video-player.js';
 
 SystemJS.config({
 	map: {
-		youtubeIAPI: "https://www.youtube.com/iframe_api"
+		youtubeIframeAPI: "https://www.youtube.com/iframe_api"
 	},
 	meta: {
 		"https://www.youtube.com/iframe_api": {
@@ -27,7 +27,7 @@ export default class YouTubeService {
 
 		// on YouTube API load
 		window.onYouTubeIframeAPIReady = function () {
-			console.log('onYouTubeIframeAPIReady()');
+			// console.log('onYouTubeIframeAPIReady()');
 
 			// Merlin Frik's Incantation introduction
 			new VideoPlayer('playerIncantation');
@@ -49,14 +49,7 @@ export default class YouTubeService {
 		};
 
 		try {
-			// var tag = document.createElement('script');
-			// tag.src = "https://www.youtube.com/iframe_api";
-			// var firstScriptTag = document.getElementsByTagName('script')[0];
-			// if (firstScriptTag.parentNode != null) {
-			//	firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-			// }
-
-			await import('youtubeIAPI'); // automatically injects a script tag
+			await import('youtubeIframeAPI'); // automatically injects a script tag
 			// console.log('API loaded');
 		}
 		catch (e) {
@@ -67,7 +60,7 @@ export default class YouTubeService {
 
 declare global {
 	interface Window {
-	onYouTubeIframeAPIReady?: () => void;
+		onYouTubeIframeAPIReady?: () => void;
 	}
 }
 

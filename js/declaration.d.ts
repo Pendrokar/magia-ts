@@ -1,3 +1,3 @@
-declare module "youtubeIAPI" {
+declare module "youtubeIframeAPI" {
 	export = YT;
 }
