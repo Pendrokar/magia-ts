@@ -35,7 +35,8 @@ System.register([], function (exports_1, context_1) {
                     // Unmute/Mute on hover
                     $(this.videoPlayerIframe)
                         .on('mouseenter', (event) => this.onPlayerMouseOver())
-                        .on('mouseleave', (event) => this.onPlayerMouseOut());
+                        .on('mouseleave', (event) => this.onPlayerMouseOut())
+                        .attr('title', 'Click/Tap to unmute!');
                     // TODO: move to service
                     $('.scroll-view').on('scroll', (event) => this.onScrollTimer());
                     this.checkPlayerVisibility();
@@ -59,13 +60,11 @@ System.register([], function (exports_1, context_1) {
                             this.userInteracted = true;
                             this.videoPlayer.playVideo();
                             this.videoPlayer.unMute();
+                            $(this.videoPlayerIframe).removeAttr('title');
                         }
                     }
                 }
                 checkPlayerVisibility() {
-                    // if (this.videoPlayer.getPlayerState() == YT.PlayerState.PAUSED) {
-                    //	return;
-                    // }
                     try {
                         if ($(this.videoPlayerIframe).visible(false, true, "both", $("#scroll-view"))) {
                             this.videoPlayer.mute();
