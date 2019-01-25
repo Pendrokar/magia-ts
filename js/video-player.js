@@ -50,14 +50,12 @@ System.register([], function (exports_1, context_1) {
                 onPlayerStateChange(event) {
                     if (event.data == YT.PlayerState.PLAYING && this.startTime == 0) {
                         this.startTime = this.videoPlayer.getCurrentTime();
-                        console.log(this.startTime);
                     }
                     // Repeat playing intro videos
                     if (event.data == YT.PlayerState.ENDED) {
                         if (this.videoPlayerID.indexOf('References') == -1) {
                             this.videoPlayer.seekTo(this.startTime, true);
                         }
-                        // this.videoPlayer.playVideo();
                         return;
                     }
                     if (event.data == YT.PlayerState.PAUSED) {
