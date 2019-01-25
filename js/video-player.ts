@@ -3,7 +3,9 @@ export class VideoPlayer {
 	private videoPlayer : YT.Player;
 	private videoPlayerIframe : HTMLIFrameElement;
 	private startTime : number = 0;
+	private userHovers : boolean = false; // User is hovering over the video
 	private userInteracted : boolean = false; // User has to interact beforehand in order to unmute videos
+	private userPaused : boolean = false; // User has to paused the video
 	private playerSettings : object;
 	private scrollTimer : number = -1;
 
@@ -36,6 +38,7 @@ export class VideoPlayer {
 		this.videoPlayerIframe = this.videoPlayer.getIframe();
 
 		this.videoPlayer.setPlaybackQuality('small');
+		this.videoPlayer.mute();
 
 		// Unmute/Mute on hover
 		$(this.videoPlayerIframe)
@@ -53,34 +56,57 @@ export class VideoPlayer {
 	//    The function indicates that when playing a video (state=1),
 	//    the player should play for six seconds and then stop.
 	onPlayerStateChange(event : YT.OnStateChangeEvent) : void {
+
 		// Repeat playing intro videos
 		if (event.data == YT.PlayerState.ENDED) {
 			if (this.videoPlayerID.indexOf('References') == -1) {
 				this.videoPlayer.seekTo(this.startTime, true);
 			}
 			this.videoPlayer.playVideo();
-		}
-		else
-		{
-			if (this.userInteracted) {
-				return;
-			}
 
-			if (this.videoPlayer.getPlayerState() == YT.PlayerState.PAUSED) {
+			return;
+		}
+
+		if (event.data == YT.PlayerState.PAUSED) {
+			if (
+				this.userInteracted == false
+				&& this.userHovers
+			) {
 				this.userInteracted = true;
+
 				this.videoPlayer.playVideo();
 				this.videoPlayer.unMute();
 
 				$(this.videoPlayerIframe).removeAttr('title');
 			}
+
+			// Take second pause as deliberate
+			if (
+				this.userInteracted
+				&& this.userPaused == false
+				&& this.userHovers
+			) {
+				this.userPaused = true;
+			}
+		}
+
+		if (
+			this.userPaused
+			&& this.userHovers
+			&& event.data == YT.PlayerState.PLAYING
+		) {
+			this.userPaused = false;
 		}
 	}
 
 	checkPlayerVisibility() : void {
 		try {
+			if (this.userPaused) {
+				return;
+			}
+
 			if($(this.videoPlayerIframe).visible(false, true, "both", $("#scroll-view")))
 			{
-				this.videoPlayer.mute();
 				this.videoPlayer.playVideo();
 			}
 			else
@@ -95,14 +121,15 @@ export class VideoPlayer {
 	}
 
 	onPlayerMouseOver() : void {
-		// check, so not to pause instead
+		this.userHovers = true;
+		// check, so not to pause due to lacking permission to unmute
 		if (this.userInteracted) {
 			this.videoPlayer.unMute();
 		}
 	}
 
 	onPlayerMouseOut() : void {
-		// check, so not to pause instead
+		this.userHovers = false;
 		if (this.userInteracted) {
 			this.videoPlayer.mute();
 		}
