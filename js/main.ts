@@ -15,7 +15,11 @@ SystemJS.config({
 	}
 });
 
-new Scroller();
+var scroller = new Scroller();
+
+$(function() {
+	scroller.onScrollTimer();
+});
 
 export default class YouTubeService {
 	constructor() {

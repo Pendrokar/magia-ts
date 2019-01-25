@@ -8,7 +8,7 @@ System.register(["./scroll.js", "./video-player.js"], function (exports_1, conte
             step((generator = generator.apply(thisArg, _arguments || [])).next());
         });
     };
-    var scroll_js_1, video_player_js_1, YouTubeService;
+    var scroll_js_1, video_player_js_1, scroller, YouTubeService;
     var __moduleName = context_1 && context_1.id;
     return {
         setters: [
@@ -33,7 +33,10 @@ System.register(["./scroll.js", "./video-player.js"], function (exports_1, conte
                     }
                 }
             });
-            new scroll_js_1.Scroller();
+            scroller = new scroll_js_1.Scroller();
+            $(function () {
+                scroller.onScrollTimer();
+            });
             YouTubeService = class YouTubeService {
                 constructor() {
                     this.loadAPI();

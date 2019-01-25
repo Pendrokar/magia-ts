@@ -34,10 +34,9 @@ export class VideoPlayer {
 
 	// The API will call this function when the video player is ready.
 	onPlayerReady() : void {
-		this.startTime = this.videoPlayer.getCurrentTime();
 		this.videoPlayerIframe = this.videoPlayer.getIframe();
-
 		this.videoPlayer.setPlaybackQuality('small');
+		this.videoPlayer.setLoop(false);
 		this.videoPlayer.mute();
 
 		// Unmute/Mute on hover
@@ -56,13 +55,15 @@ export class VideoPlayer {
 	//    The function indicates that when playing a video (state=1),
 	//    the player should play for six seconds and then stop.
 	onPlayerStateChange(event : YT.OnStateChangeEvent) : void {
+		if (event.data == YT.PlayerState.PLAYING && this.startTime == 0) {
+			this.startTime = this.videoPlayer.getCurrentTime();
+		}
 
 		// Repeat playing intro videos
 		if (event.data == YT.PlayerState.ENDED) {
 			if (this.videoPlayerID.indexOf('References') == -1) {
 				this.videoPlayer.seekTo(this.startTime, true);
 			}
-			this.videoPlayer.playVideo();
 
 			return;
 		}
