@@ -5,6 +5,7 @@ export class Scroller {
 	private viewHeight : number = 0;
 	private scrollTopOffset : number = 240 - this.paperHeight;
 	private scrollBottomOffset : number = this.scrollTopOffset - this.paperHeight;
+	private scrollTimer : number = -1;
 	// jQuery Objects:
 	private container : JQuery;
 	private footer : JQuery;
@@ -27,13 +28,17 @@ export class Scroller {
 			.on('resize', (event) => this.onResize())
 			.trigger('resize');
 
-		$('.scroll-view')
-			.on('scroll', (event) => this.onScroll())
-			.trigger('scroll');
+		// $('.scroll-view')
+		//	.on('scroll', (event) => this.onScroll())
+		//	.trigger('scroll');
 
 		if (this.debug) {
 			console.log('Scroll manager ready');
 		}
+	}
+
+	onScrollTimer() {
+		this.scrollTimer = window.setTimeout(() => this.onScroll(), 30);
 	}
 
 	onResize() : void {
@@ -54,6 +59,8 @@ export class Scroller {
 
 		this.scrollBottom
 			.css("background-position", "0 " + (this.viewHeight + this.scrollBottomOffset + scrollTopVal) + "px");
+
+		this.onScrollTimer();
 	}
 }
 

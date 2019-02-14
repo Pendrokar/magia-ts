@@ -14,6 +14,7 @@ System.register([], function (exports_1, context_1) {
                     this.viewHeight = 0;
                     this.scrollTopOffset = 240 - this.paperHeight;
                     this.scrollBottomOffset = this.scrollTopOffset - this.paperHeight;
+                    this.scrollTimer = -1;
                     // Find & assign jQuery Objects to variables:
                     this.container = $('.container').eq(0);
                     this.footer = $('.footer').eq(0);
@@ -24,12 +25,15 @@ System.register([], function (exports_1, context_1) {
                     $(window)
                         .on('resize', (event) => this.onResize())
                         .trigger('resize');
-                    $('.scroll-view')
-                        .on('scroll', (event) => this.onScroll())
-                        .trigger('scroll');
+                    // $('.scroll-view')
+                    //	.on('scroll', (event) => this.onScroll())
+                    //	.trigger('scroll');
                     if (this.debug) {
                         console.log('Scroll manager ready');
                     }
+                }
+                onScrollTimer() {
+                    this.scrollTimer = window.setTimeout(() => this.onScroll(), 30);
                 }
                 onResize() {
                     this.viewHeight = $(window).height() - this.container.outerHeight() + this.viewHeight - this.footer.outerHeight();
@@ -45,6 +49,7 @@ System.register([], function (exports_1, context_1) {
                         .css("background-position", "0 " + (this.paperHeight - this.scrollTopOffset + scrollTopVal) + "px");
                     this.scrollBottom
                         .css("background-position", "0 " + (this.viewHeight + this.scrollBottomOffset + scrollTopVal) + "px");
+                    this.onScrollTimer();
                 }
             };
             exports_1("Scroller", Scroller);
