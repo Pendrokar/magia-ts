@@ -2,6 +2,7 @@
   "name": "magia",
   "version": "0.1.0",
   "devDependencies": {
+    "@angular/cli": "^8.1.2",
     "@angular/common": "^6.1.9",
     "@angular/core": "^6.1.9",
     "@types/df-visible": "0.0.6",
@@ -10,15 +11,19 @@
     "@types/youtube": "0.0.32",
     "angular": "^1.7.4",
     "browserify": "^16.2.3",
-    "grunt": "^1.0.3",
-    "grunt-contrib-compass": "~1.1.1",
+    "grunt": "^1.0.4",
     "grunt-contrib-uglify": "~1.0.1",
-    "gulp": "^3.9.1",
+    "grunt-sass": "^3.0.2",
+    "gulp": "^4.0.2",
     "gulp-typescript": "^4.0.2",
+    "load-grunt-tasks": "^5.0.0",
     "ng2-youtube-player": "0.0.31",
+    "rxjs": "^6.5.2",
+    "sass": "^1.22.7",
     "tsify": "^4.0.0",
     "typescript": "^2.9.2",
-    "vinyl-source-stream": "^2.0.0"
+    "vinyl-source-stream": "^2.0.0",
+    "zone.js": "^0.8.29"
   },
   "dependencies": {
     "jquery-visible": "^1.2.0",
