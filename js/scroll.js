@@ -36,7 +36,7 @@ System.register([], function (exports_1, context_1) {
                     this.scrollTimer = window.setTimeout(() => this.onScroll(), 30);
                 }
                 onResize() {
-                    this.viewHeight = $(window).height() - this.container.outerHeight() + this.viewHeight - this.footer.outerHeight();
+                    this.viewHeight = $(window).height() - this.container.outerHeight() + this.viewHeight - this.scrollBottom.outerHeight() - this.footer.outerHeight();
                     this.scrollView
                         .height(this.viewHeight);
                     if (this.debug) {
@@ -48,7 +48,7 @@ System.register([], function (exports_1, context_1) {
                     this.scrollTop
                         .css("background-position", "0 " + (this.paperHeight - this.scrollTopOffset + scrollTopVal) + "px");
                     this.scrollBottom
-                        .css("background-position", "0 " + (this.viewHeight + this.scrollBottomOffset + scrollTopVal) + "px");
+                        .css("background-position", "0 " + (this.viewHeight + 120 + scrollTopVal) + "px");
                     this.onScrollTimer();
                 }
             };

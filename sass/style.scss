@@ -3,6 +3,7 @@
 	height: auto !important;
 	margin: 0 0 -50px;
 	min-height: 100%;
+	overflow: hidden;
 	text-align: center;
 }
 
@@ -57,10 +58,18 @@
 /*            MAIN CONTENT            */
 /**************************************/
 
+@keyframes open-scroll {
+	to {top:100%}
+}
+
+@keyframes roll-scroll {
+	from {background-position:0}
+}
+
 .scroll {
-	margin: 0 auto;
+	margin: 0 auto 120px;
 	width: 1000px;
-	overflow: hidden;
+	//overflow: hidden;
 	position: relative;
 
 	.scroll-top,
@@ -75,6 +84,7 @@
 	.scroll-bottom {
 		background-image: url("../images/scrollbar.jpg");
 		border-radius: 5px;
+		z-index: 1;
 
 		.shadow {
 			position: absolute;
@@ -87,7 +97,6 @@
 
 	.scroll-top {
 		height: 120px;
-		z-index: 1;
 
 		.shadow {
 			// Permalink - use to edit and share this gradient:
@@ -167,6 +176,16 @@
 		}
 	}
 
+	.scroll-footer,
+	.scroll-bottom {
+		animation-delay: 1.5s;
+		animation-duration: 1.25s;
+		animation-fill-mode: forwards;
+		animation-iteration-count: 1;
+		animation-name: open-scroll;
+		animation-timing-function: ease-out;
+	}
+
 	.scroll-footer {
 		background-color: #000;
 		height: 100%;
@@ -177,8 +196,8 @@
 	}
 
 	.scroll-bottom {
+		animation-name: roll-scroll;
 		height: 120px;
-		z-index: 1;
 
 		.shadow {
 			// Permalink - use to edit and share this gradient:

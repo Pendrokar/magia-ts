@@ -5,7 +5,7 @@
     "@angular/cli": "^8.1.2",
     "@angular/common": "^6.1.9",
     "@angular/core": "^6.1.9",
-    "@types/df-visible": "0.0.6",
+    "@types/df-visible": "0.0.7",
     "@types/jquery": "^3.3.10",
     "@types/systemjs": "^0.20.6",
     "@types/youtube": "0.0.32",

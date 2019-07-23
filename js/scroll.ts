@@ -42,7 +42,7 @@ export class Scroller {
 	}
 
 	onResize() : void {
-		this.viewHeight = <number>$(window).height() - <number>this.container.outerHeight() + this.viewHeight - <number>this.footer.outerHeight();
+		this.viewHeight = <number>$(window).height() - <number>this.container.outerHeight() + this.viewHeight - <number>this.scrollBottom.outerHeight() - <number>this.footer.outerHeight();
 		this.scrollView
 			.height(this.viewHeight)
 
@@ -58,7 +58,7 @@ export class Scroller {
 			.css("background-position", "0 " + (this.paperHeight - this.scrollTopOffset + scrollTopVal) + "px");
 
 		this.scrollBottom
-			.css("background-position", "0 " + (this.viewHeight + this.scrollBottomOffset + scrollTopVal) + "px");
+			.css("background-position", "0 " + (this.viewHeight + 120 + scrollTopVal) + "px");
 
 		this.onScrollTimer();
 	}
