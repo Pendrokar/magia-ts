@@ -36,7 +36,8 @@ System.register([], function (exports_1, context_1) {
                     this.scrollTimer = window.setTimeout(() => this.onScroll(), 30);
                 }
                 onResize() {
-                    this.viewHeight = $(window).height() - this.container.outerHeight() + this.viewHeight - this.scrollBottom.outerHeight() - this.footer.outerHeight();
+                    this.viewHeight = $(window).height();
+                    //this.viewHeight = <number>$(window).height() - <number>this.container.outerHeight() + this.viewHeight - <number>this.scrollBottom.outerHeight() - <number>this.footer.outerHeight();
                     //this.scrollView
                     //	.height(this.viewHeight)
                     if (this.debug) {

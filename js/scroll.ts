@@ -42,7 +42,8 @@ export class Scroller {
 	}
 
 	onResize() : void {
-		this.viewHeight = <number>$(window).height() - <number>this.container.outerHeight() + this.viewHeight - <number>this.scrollBottom.outerHeight() - <number>this.footer.outerHeight();
+		this.viewHeight = <number>$(window).height();
+		//this.viewHeight = <number>$(window).height() - <number>this.container.outerHeight() + this.viewHeight - <number>this.scrollBottom.outerHeight() - <number>this.footer.outerHeight();
 		//this.scrollView
 		//	.height(this.viewHeight)
 
