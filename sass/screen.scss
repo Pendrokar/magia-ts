@@ -1,5 +1,3 @@
-@import "compass/css3/font-face";
-
 /*** BASE SIZES ***/
 .container { font-size: 1.2em; line-height: 1.6em; }
 h1, .h1 { font-size: 1.9em; }
@@ -13,17 +11,22 @@ h6, .h6 { font-size: 1em; }
 /*              GLOBALS               */
 /**************************************/
 
-@include font-face("spellbook", font-files(
-  "spellbook/spellbook-webfont.woff",
-  "spellbook/spellbook-webfont.ttf",
-  "spellbook/spellbook-webfont.svg"
-), "spellbook/spellbook-webfont.eot");
+@font-face{
+  font-family:"spellbook";
+  src:url('../fonts/spellbook/spellbook-webfont.eot?1465701362');
+  src:url('../fonts/spellbook/spellbook-webfont.eot?&1465701362#iefix') format('embedded-opentype'),
+  url('../fonts/spellbook/spellbook-webfont.woff?1465701362') format('woff'),
+  url('../fonts/spellbook/spellbook-webfont.ttf?1465701362') format('truetype'),
+  url('../fonts/spellbook/spellbook-webfont.svg?1465701362') format('svg')
+}
 
-@include font-face("Freebooter Script", font-files(
-  "freebooter/web_fonts/freebooterscript_regular_ubasic/freebooterscript-webfont.woff",
-  "freebooter/web_fonts/freebooterscript_regular_ubasic/freebooterscript-webfont.ttf",
-  "freebooter/web_fonts/freebooterscript_regular_ubasic/freebooterscript-webfont.svg"
-), "freebooter/web_fonts/freebooterscript_regular_ubasic/freebooterscript-webfont.eot");
+@font-face{font-family:"Freebooter Script";
+  src:url('../fonts/freebooter/web_fonts/freebooterscript_regular_ubasic/freebooterscript-webfont.eot?1465699324');
+  src:url('../fonts/freebooter/web_fonts/freebooterscript_regular_ubasic/freebooterscript-webfont.eot?&1465699324#iefix') format('embedded-opentype'),
+  url('../fonts/freebooter/web_fonts/freebooterscript_regular_ubasic/freebooterscript-webfont.woff?1465699324') format('woff'),
+  url('../fonts/freebooter/web_fonts/freebooterscript_regular_ubasic/freebooterscript-webfont.ttf?1465699324') format('truetype'),
+  url('../fonts/freebooter/web_fonts/freebooterscript_regular_ubasic/freebooterscript-webfont.svg?1465699324') format('svg')
+}
 
 html, body {
   height: 100%;

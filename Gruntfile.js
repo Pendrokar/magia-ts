@@ -1,12 +1,22 @@
+const sass = require('sass');
+var grunt = require("grunt");
+
+require('load-grunt-tasks')(grunt);
+
 module.exports = function(grunt) {
   grunt.initConfig({
-    compass: {
-      dist: {
+    sass: {
         options: {
-          config: 'config.rb'
+            implementation: sass,
+            sourceMap: false,
+            outputStyle: 'compressed'
+        },
+        dist: {
+            files: {
+                'css/main.css': 'sass/main.scss'
+            }
         }
-      }
-    },
+    }
 
     // uglify: {
     //   my_target: {
@@ -17,11 +27,7 @@ module.exports = function(grunt) {
     // }
   });
 
-  grunt.loadNpmTasks('grunt-contrib-compass');
   // grunt.loadNpmTasks('grunt-contrib-uglify');
-
-  grunt.registerTask('default', ['compass',]); // 'uglify'
-
-  grunt.registerTask('minifycss', ['compass']);
   // grunt.registerTask('minifyjs', ['uglify']);
+  grunt.registerTask('default', ['sass']);
 };
