@@ -35,6 +35,11 @@
 		white-space: nowrap;
 		writing-mode: vertical-rl;
 	}
+
+	&+.cipher,
+	&:last-child {
+		transform: scaleX(-1);
+	}
 }
 
 .minor-push {

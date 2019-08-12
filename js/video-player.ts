@@ -106,7 +106,7 @@ export class VideoPlayer {
 				return;
 			}
 
-			if($(this.videoPlayerIframe).visible(false, true, "both"))
+			if($(this.videoPlayerIframe).visible(true, true, "vertical"))
 			{
 				this.videoPlayer.playVideo();
 			}

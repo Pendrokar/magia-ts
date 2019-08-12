@@ -84,7 +84,7 @@ System.register([], function (exports_1, context_1) {
                         if (this.userPaused) {
                             return;
                         }
-                        if ($(this.videoPlayerIframe).visible(false, true, "both")) {
+                        if ($(this.videoPlayerIframe).visible(true, true, "vertical")) {
                             this.videoPlayer.playVideo();
                         }
                         else {
