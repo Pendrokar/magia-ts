@@ -43,8 +43,8 @@ export class Scroller {
 
 	onResize() : void {
 		this.viewHeight = <number>$(window).height() - <number>this.container.outerHeight() + this.viewHeight - <number>this.scrollBottom.outerHeight() - <number>this.footer.outerHeight();
-		this.scrollView
-			.height(this.viewHeight)
+		//this.scrollView
+		//	.height(this.viewHeight)
 
 		if (this.debug) {
 			console.log('Scroll manager: window resized');
@@ -52,7 +52,7 @@ export class Scroller {
 	}
 
 	onScroll() : void {
-		let scrollTopVal = <number>this.scrollView.scrollTop();
+		let scrollTopVal = <number>$(window).scrollTop();
 
 		this.scrollTop
 			.css("background-position", "0 " + (this.paperHeight - this.scrollTopOffset + scrollTopVal) + "px");

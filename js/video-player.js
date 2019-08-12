@@ -41,7 +41,7 @@ System.register([], function (exports_1, context_1) {
                         .on('mouseleave', (event) => this.onPlayerMouseOut())
                         .attr('title', 'Click/Tap to unmute!');
                     // TODO: move to service
-                    $('.scroll-view').on('scroll', (event) => this.onScrollTimer());
+                    $(window).on('scroll', (event) => this.onScrollTimer());
                     this.checkPlayerVisibility();
                 }
                 // The API calls this function when the player's state changes.
@@ -66,7 +66,7 @@ System.register([], function (exports_1, context_1) {
                             this.videoPlayer.unMute();
                             $(this.videoPlayerIframe).removeAttr('title');
                         }
-                        // Take second pause as deliberate
+                        // Take the occurance of second pause as deliberate and remain paused thereafter
                         if (this.userInteracted
                             && this.userPaused == false
                             && this.userHovers) {
@@ -84,7 +84,7 @@ System.register([], function (exports_1, context_1) {
                         if (this.userPaused) {
                             return;
                         }
-                        if ($(this.videoPlayerIframe).visible(false, true, "both", $("#scroll-view"))) {
+                        if ($(this.videoPlayerIframe).visible(false, true, "both")) {
                             this.videoPlayer.playVideo();
                         }
                         else {

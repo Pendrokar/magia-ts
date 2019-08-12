@@ -37,14 +37,14 @@ System.register([], function (exports_1, context_1) {
                 }
                 onResize() {
                     this.viewHeight = $(window).height() - this.container.outerHeight() + this.viewHeight - this.scrollBottom.outerHeight() - this.footer.outerHeight();
-                    this.scrollView
-                        .height(this.viewHeight);
+                    //this.scrollView
+                    //	.height(this.viewHeight)
                     if (this.debug) {
                         console.log('Scroll manager: window resized');
                     }
                 }
                 onScroll() {
-                    let scrollTopVal = this.scrollView.scrollTop();
+                    let scrollTopVal = $(window).scrollTop();
                     this.scrollTop
                         .css("background-position", "0 " + (this.paperHeight - this.scrollTopOffset + scrollTopVal) + "px");
                     this.scrollBottom

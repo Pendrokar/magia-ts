@@ -3,12 +3,11 @@
 	height: auto !important;
 	margin: 0 0 -50px;
 	min-height: 100%;
-	overflow: hidden;
 	text-align: center;
 }
 
 .container {
-	padding-top: 2em;
+	padding-top: 0;
 }
 
 .footer, .push {
@@ -67,7 +66,7 @@
 }
 
 .scroll {
-	margin: 0 auto 120px;
+	margin: 120px auto 80px;
 	width: 1000px;
 	//overflow: hidden;
 	position: relative;
@@ -121,7 +120,6 @@
 	}
 
 	.scroll-view {
-		height: 0;
 		margin: -5px 0; // to hide border radius of top and bottom.
 		overflow-x: hidden;
 		overflow-y: -moz-scrollbars-none;
@@ -225,4 +223,41 @@
 	img {
 		vertical-align: middle;
 	}
+}
+
+
+
+.scroll {
+	width: auto;
+}
+
+.scroll .scroll-header, .scroll .scroll-footer {
+	position: fixed;
+	/* position: sticky; */
+	left: 50%;
+	width: 1110px;
+	margin-left: -555px;
+	z-index: 1;
+}
+
+.scroll .scroll-header {
+	background-color: #000;
+	padding-top: 1em;
+	top: 0;
+}
+
+.scroll .scroll-footer {
+	top: 260px;
+	/* position: fixed; */
+	margin-top: -130px;
+}
+
+.scroll {
+}
+
+.scroll .scroll-top, .scroll .scroll-bottom {
+}
+
+.scroll .scroll-view {
+	/* padding-top: 120px; */
 }
