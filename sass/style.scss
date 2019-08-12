@@ -21,11 +21,15 @@
 	font-weight: normal;
 	text-transform: uppercase;
 
+
 	&.h1 {
+		color: #000;
 		left: 0;
 		letter-spacing: .2em;
-		margin: 0 1em;
-		position: absolute;
+		line-height: 88.8px;
+		margin: 0;
+		padding: 2em 0;
+		text-align: left;
 		text-orientation: upright;
 		top: 1.65em;
 		white-space: nowrap;
@@ -67,9 +71,19 @@
 
 .scroll {
 	margin: 120px auto 80px;
-	width: 1000px;
-	//overflow: hidden;
+	width: auto;
 	position: relative;
+
+	.scroll-header,
+	.scroll-footer {
+		background-color: #000;
+		position: fixed;
+		/* position: sticky; */
+		left: 50%;
+		width: 1110px;
+		margin-left: -555px;
+		z-index: 1;
+	}
 
 	.scroll-top,
 	.scroll-content,
@@ -82,6 +96,7 @@
 	.scroll-top,
 	.scroll-bottom {
 		background-image: url("../images/scrollbar.jpg");
+		background-size: 100%;
 		border-radius: 5px;
 		z-index: 1;
 
@@ -92,6 +107,11 @@
 			height: 150%;
 			width: 100%;
 		}
+	}
+
+	.scroll-header {
+		padding-top: 1em;
+		top: 0;
 	}
 
 	.scroll-top {
@@ -114,12 +134,20 @@
 	}
 
 	.scroll-content {
+		background-image: none;
+		padding: 6% 1%;
+
 		.quote {
 			font-style: italic;
 		}
 	}
 
 	.scroll-view {
+		background-image: url("../images/scroll_cut.jpg");
+		background-repeat: repeat-y;
+		background-size: 100%;
+		display: grid;
+		grid-template-columns: 8% 1fr 8%;
 		margin: -5px 0; // to hide border radius of top and bottom.
 		overflow-x: hidden;
 		overflow-y: -moz-scrollbars-none;
@@ -137,7 +165,6 @@
 	}
 
 	.scroll-content {
-		background-image: url("../images/scroll_cut.jpg");
 		color: #000000;
 		font-family: cursive, serif;
 		overflow: hidden;
@@ -154,6 +181,7 @@
 			text-decoration: none;
 		}
 
+		// TODO: random oriented pages, transform scale is hard on performance though
 		.page {
 			background: url("../images/old_page_cut.jpg");
 			// background-image: url(../images/old_page_cut.svg?1503741235); // wanted to merge with edges with all the different perspectives
@@ -185,12 +213,10 @@
 	}
 
 	.scroll-footer {
-		background-color: #000;
 		height: 100%;
-		left: 0;
-		position: absolute;
-		top: 120px;
-		width: 100%;
+		margin-top: -130px;
+		top: 260px;
+		z-index: 1;
 	}
 
 	.scroll-bottom {
@@ -223,41 +249,4 @@
 	img {
 		vertical-align: middle;
 	}
-}
-
-
-
-.scroll {
-	width: auto;
-}
-
-.scroll .scroll-header, .scroll .scroll-footer {
-	position: fixed;
-	/* position: sticky; */
-	left: 50%;
-	width: 1110px;
-	margin-left: -555px;
-	z-index: 1;
-}
-
-.scroll .scroll-header {
-	background-color: #000;
-	padding-top: 1em;
-	top: 0;
-}
-
-.scroll .scroll-footer {
-	top: 260px;
-	/* position: fixed; */
-	margin-top: -130px;
-}
-
-.scroll {
-}
-
-.scroll .scroll-top, .scroll .scroll-bottom {
-}
-
-.scroll .scroll-view {
-	/* padding-top: 120px; */
 }
