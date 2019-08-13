@@ -1,10 +1,21 @@
 var gulp = require("gulp");
 var browserify = require("browserify");
 var source = require('vinyl-source-stream');
+var ts = require('gulp-typescript');
 var tsify = require("tsify");
 var paths = {
     pages: ['index.html']
 };
+
+gulp.task('default', function () {
+    return gulp.src('js/*.ts')
+        .pipe(ts({
+            target: 'es6',
+            module: 'system',
+            noImplicitAny: true
+        }))
+        .pipe(gulp.dest('js'));
+});
 
 // var tsProject = ts.createProject("tsconfig.json");
 
@@ -13,6 +24,7 @@ gulp.task("copy-html", function () {
         .pipe(gulp.dest("dist"));
 });
 
+/*
 gulp.task("default", gulp.series("copy-html", function () {
     return browserify({
         basedir: '.',
@@ -27,3 +39,4 @@ gulp.task("default", gulp.series("copy-html", function () {
         .pipe(source('bundle.js'))
         .pipe(gulp.dest("dist"));
 }));
+*/
