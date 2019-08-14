@@ -1,12 +1,6 @@
 const gulp = require("gulp");
-// const browserify = require("browserify");
-// const source = require('vinyl-source-stream');
 const ts = require('gulp-typescript');
-// const tsify = require("tsify");
 const sass = require('gulp-sass');
-//const paths = {
-//    pages: ['index.html']
-//};
 
 // SCSS => CSS
 sass.compiler = require('node-sass');
@@ -22,9 +16,11 @@ const sassTask = function () {
 
 gulp.task('sass', sassTask);
 
-gulp.task('sass:watch', function () {
-    gulp.watch('./sass/**/*.scss', ['sass']);
-});
+const sassWatch = function () {
+    gulp.watch('./sass/**/*.scss', gulp.series('sass'));
+}
+
+gulp.task('sass:watch', sassWatch);
 
 
 
@@ -40,31 +36,14 @@ const tsTask = function () {
 }
 gulp.task('tsc', tsTask);
 
+const tscWatch = function () {
+    gulp.watch('./js/**/*.ts', gulp.series('tsc'));
+}
 
+gulp.task('tsc:watch', tscWatch);
+
+// Run watch tasks
+gulp.task('watch', gulp.parallel(sassWatch, tscWatch));
 
 // Run default tasks
 gulp.task('default', gulp.series(sassTask, tsTask));
-
-// var tsProject = ts.createProject("tsconfig.json");
-
-/*
-
-gulp.task("copy-html", function () {
-    return gulp.src(paths.pages)
-        .pipe(gulp.dest("dist"));
-});
-gulp.task("default", gulp.series("copy-html", function () {
-    return browserify({
-        basedir: '.',
-        debug: true,
-        entries: ['js/main.ts'],
-        cache: {},
-        packageCache: {}
-    })
-        // .add('js/main.ts')
-        .plugin(tsify, { target: 'es6', module: 'system' })
-        .bundle()
-        .pipe(source('bundle.js'))
-        .pipe(gulp.dest("dist"));
-}));
-*/
