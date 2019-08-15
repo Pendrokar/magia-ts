@@ -28,6 +28,7 @@
     "zone.js": "^0.8.29"
   },
   "dependencies": {
+    "include-media": "^1.4.9",
     "jquery-visible": "^1.2.0",
     "systemjs": "^0.21.5",
     "youtube": "^0.1.0"

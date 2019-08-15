@@ -1,11 +1,15 @@
+@import "../node_modules/include-media/dist/_include-media.scss";
+
+$padding: 1em;
 $scroll-corner: .3em;
+$scroll-handle-height: 120px;
+$scroll-width-desktop: 1024px;
+
+$breakpoints: (phone: 320px, tablet: 768px, desktop: $scroll-width-desktop);
 
 .wrapper {
-	height: 100%;
-	height: auto !important;
 	margin: 0 0 -50px;
 	min-height: 100%;
-	text-align: center;
 }
 
 .container {
@@ -69,27 +73,55 @@ $scroll-corner: .3em;
 /**************************************/
 
 @keyframes open-scroll {
-	to {top:100%}
+	to {
+		top: 85%;
+	}
 }
 
 @keyframes roll-scroll {
-	from {background-position:0}
+	from { background-position: 0 }
 }
 
+/* Inclusive and exclusive operators for a finer control over the intervals */
+// @include media(">phone", "<=tablet") {
+// 	width: 50%;
+// }
+
+/* Use ligatured operators if you fancy a slicker declaration */
+// @include media("≥phone", "≤tablet") {
+// 	line-height: 1.5;
+// }
+
 .scroll {
-	margin: 120px auto 80px;
-	width: auto;
+	color: #000;
+	margin: 15% auto 80px;
 	position: relative;
+	width: 100%;
+
+	@include media(">=desktop") {
+		margin-top: $scroll-handle-height;
+		// margin-top: $padding + $scroll-handle-height;
+		// left: 50%;
+		// margin-left: -$scroll-width-desktop/2;
+		width: $scroll-width-desktop;
+	}
+
+	.scroll-conceal {
+		background-color: #000;
+		left: 0;
+		z-index: 1;
+	}
 
 	.scroll-header,
 	.scroll-footer {
-		background-color: #000;
 		position: fixed;
-		/* position: sticky; */
-		left: 50%;
-		width: 1110px;
-		margin-left: -555px;
+		width: 100%;
 		z-index: 1;
+
+		@include media(">=desktop") {
+			height: $scroll-handle-height;
+			width: $scroll-width-desktop;
+		}
 	}
 
 	.scroll-top,
@@ -105,6 +137,7 @@ $scroll-corner: .3em;
 		background-image: url("../images/scrollbar.jpg");
 		background-size: 100%;
 		border-radius: $scroll-corner;
+		height: 100%;
 		z-index: 1;
 
 		.shadow {
@@ -117,13 +150,20 @@ $scroll-corner: .3em;
 	}
 
 	.scroll-header {
-		padding-top: 1em;
+		height: 15%;
 		top: 0;
+
+		.scroll-conceal {
+			height: 0;
+			width: 100%;
+
+			@include media(">=desktop") {
+				height: 1em;
+			}
+		}
 	}
 
 	.scroll-top {
-		height: 120px;
-
 		.shadow {
 			// Permalink - use to edit and share this gradient:
 			// http://colorzilla.com/gradient-editor/#ffffff+30,000000+66&0+15,0.6+27,0.6+30,0+40,0.7+66,0.57+80,0+100
@@ -140,15 +180,6 @@ $scroll-corner: .3em;
 		}
 	}
 
-	.scroll-content {
-		font-family: "Comic Sans MS", cursive, serif;
-		padding: 6% 1%;
-
-		.quote {
-			font-style: italic;
-		}
-	}
-
 	.scroll-view {
 		background-image: url("../images/scroll_seamless.jpg");
 		background-repeat: repeat-y;
@@ -159,6 +190,10 @@ $scroll-corner: .3em;
 		overflow-x: hidden;
 		overflow-y: -moz-scrollbars-none;
 		z-index: 0;
+
+		@include media(">=desktop") {
+			width: $scroll-width-desktop;
+		}
 
 		&::-webkit-scrollbar {
 			display: none;
@@ -172,10 +207,13 @@ $scroll-corner: .3em;
 	}
 
 	.scroll-content {
-		color: #000000;
-		font-family: cursive, serif;
+		font-family: "Comic Sans MS", cursive, serif;
 		overflow: hidden;
 		padding: 6% 12%;
+
+		.quote {
+			font-style: italic;
+		}
 
 		a,
 		a:link,
@@ -221,27 +259,44 @@ $scroll-corner: .3em;
 
 	.scroll-footer {
 		height: 100%;
-		margin-top: -140px;
-		top: 260px;
+		// margin-top: -$scroll-handle-height+20;
+		top: 15%;
 		z-index: 1;
-	}
 
-	.scroll-bottom {
-		animation-name: roll-scroll;
-		height: 120px;
+		@include media(">=desktop") {
+			// top: 15;
+			// margin-top: -$scroll-handle-height+20;
+		}
 
-		.shadow {
-			// Permalink - use to edit and share this gradient:
-			// http://colorzilla.com/gradient-editor/#ffffff+25,000000+100&0+6,0.6+22,0.45+37,0+50,0.7+100
-			background: linear-gradient(to bottom,
-				rgba(255,255,255,0) 6%,
-				rgba(255,255,255,0.6) 22%,
-				rgba(255,255,255,0.57) 25%,
-				rgba(214,214,214,0.45) 37%,
-				rgba(170,170,170,0) 50%,
-				rgba(0,0,0,0.7) 100%
-			); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+		.scroll-bottom {
+			animation-name: roll-scroll;
+			height: 15%;
+			z-index: 2;
+
+			@include media(">=desktop") {
+				height: $scroll-handle-height;
+			}
+
+			.shadow {
+				// Permalink - use to edit and share this gradient:
+				// http://colorzilla.com/gradient-editor/#ffffff+25,000000+100&0+6,0.6+22,0.45+37,0+50,0.7+100
+				background: linear-gradient(to bottom,
+					rgba(255,255,255,0) 6%,
+					rgba(255,255,255,0.6) 22%,
+					rgba(255,255,255,0.57) 25%,
+					rgba(214,214,214,0.45) 37%,
+					rgba(170,170,170,0) 50%,
+					rgba(0,0,0,0.7) 100%
+				); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+				height: 100%;
+			}
+		}
+
+		.scroll-conceal {
 			height: 100%;
+			position: relative;
+			top: -$scroll-corner;
+			z-index: 1;
 		}
 	}
 }
@@ -252,6 +307,7 @@ $scroll-corner: .3em;
 
 .footer {
 	bottom: 0;
+	display: none;
 	height: auto;
 	line-height: 1.5em;
 	position: fixed;
@@ -266,5 +322,9 @@ $scroll-corner: .3em;
 
 	img {
 		vertical-align: middle;
+	}
+
+	@include media(">=desktop") {
+		display: block;
 	}
 }
