@@ -1,3 +1,5 @@
+$scroll-corner: .3em;
+
 .wrapper {
 	height: 100%;
 	height: auto !important;
@@ -102,7 +104,7 @@
 	.scroll-bottom {
 		background-image: url("../images/scrollbar.jpg");
 		background-size: 100%;
-		border-radius: 5px;
+		border-radius: $scroll-corner;
 		z-index: 1;
 
 		.shadow {
@@ -139,7 +141,7 @@
 	}
 
 	.scroll-content {
-		background-image: none;
+		font-family: "Comic Sans MS", cursive, serif;
 		padding: 6% 1%;
 
 		.quote {
@@ -148,7 +150,7 @@
 	}
 
 	.scroll-view {
-		background-image: url("../images/scroll_cut.jpg");
+		background-image: url("../images/scroll_seamless.jpg");
 		background-repeat: repeat-y;
 		background-size: 100%;
 		display: grid;
@@ -219,7 +221,7 @@
 
 	.scroll-footer {
 		height: 100%;
-		margin-top: -130px;
+		margin-top: -140px;
 		top: 260px;
 		z-index: 1;
 	}
@@ -249,7 +251,18 @@
 /**************************************/
 
 .footer {
+	bottom: 0;
+	height: auto;
+	line-height: 1.5em;
+	position: fixed;
 	text-align: center;
+	width: 100%;
+	z-index: 2;
+
+	a {
+		color: #fff;
+		text-decoration: none;
+	}
 
 	img {
 		vertical-align: middle;

@@ -1,7 +1,7 @@
 export class Scroller {
 	// Declare variables:
 	private debug : boolean = false;
-	private paperHeight : number = 1710;
+	private paperHeight : number = 1610;
 	private viewHeight : number = 0;
 	private scrollTopOffset : number = 240 - this.paperHeight;
 	private scrollBottomOffset : number = this.scrollTopOffset - this.paperHeight;

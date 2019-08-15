@@ -10,7 +10,7 @@ System.register([], function (exports_1, context_1) {
                     // Assign variables:
                     // Declare variables:
                     this.debug = false;
-                    this.paperHeight = 1710;
+                    this.paperHeight = 1610;
                     this.viewHeight = 0;
                     this.scrollTopOffset = 240 - this.paperHeight;
                     this.scrollBottomOffset = this.scrollTopOffset - this.paperHeight;
@@ -54,6 +54,7 @@ System.register([], function (exports_1, context_1) {
                 }
             };
             exports_1("Scroller", Scroller);
+            // var test = new Scroller();
         }
     };
 });
