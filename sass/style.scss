@@ -1,8 +1,11 @@
 @import "../node_modules/include-media/dist/_include-media.scss";
 
-$padding: 1em;
+$padding: 1rem;
 $scroll-corner: .3em;
-$scroll-handle-height: 120px;
+// $scroll-handle-height-landscape: 120px;
+// $scroll-handle-height-portrait: 180px;
+$scroll-handle-height-landscape: 6rem;
+$scroll-handle-height-portrait: 8rem;
 $scroll-width-desktop: 1024px;
 
 $breakpoints: (phone: 320px, tablet: 768px, desktop: $scroll-width-desktop);
@@ -30,7 +33,6 @@ $breakpoints: (phone: 320px, tablet: 768px, desktop: $scroll-width-desktop);
 
 	&.h1 {
 		color: #000;
-		left: 0;
 		letter-spacing: .2em;
 		line-height: 88.8px;
 		margin: 0;
@@ -63,7 +65,7 @@ $breakpoints: (phone: 320px, tablet: 768px, desktop: $scroll-width-desktop);
 
 .title {
 	font-family: "Freebooter Script";
-	letter-spacing: 0.2em;
+	letter-spacing: .2em;
 	margin-top: 0;
 }
 
@@ -74,7 +76,7 @@ $breakpoints: (phone: 320px, tablet: 768px, desktop: $scroll-width-desktop);
 
 @keyframes open-scroll {
 	to {
-		top: 85%;
+		top: 100%;
 	}
 }
 
@@ -94,15 +96,12 @@ $breakpoints: (phone: 320px, tablet: 768px, desktop: $scroll-width-desktop);
 
 .scroll {
 	color: #000;
-	margin: 15% auto 80px;
+	margin: $scroll-handle-height-portrait auto;
 	position: relative;
 	width: 100%;
 
-	@include media(">=desktop") {
-		margin-top: $scroll-handle-height;
-		// margin-top: $padding + $scroll-handle-height;
-		// left: 50%;
-		// margin-left: -$scroll-width-desktop/2;
+	@include media("landscape") {
+		margin-top: $padding + $scroll-handle-height-landscape;
 		width: $scroll-width-desktop;
 	}
 
@@ -114,12 +113,13 @@ $breakpoints: (phone: 320px, tablet: 768px, desktop: $scroll-width-desktop);
 
 	.scroll-header,
 	.scroll-footer {
+		height: $scroll-handle-height-portrait;
 		position: fixed;
 		width: 100%;
 		z-index: 1;
 
-		@include media(">=desktop") {
-			height: $scroll-handle-height;
+		@include media("landscape") {
+			height: $scroll-handle-height-landscape;
 			width: $scroll-width-desktop;
 		}
 	}
@@ -150,15 +150,14 @@ $breakpoints: (phone: 320px, tablet: 768px, desktop: $scroll-width-desktop);
 	}
 
 	.scroll-header {
-		height: 15%;
 		top: 0;
 
 		.scroll-conceal {
 			height: 0;
 			width: 100%;
 
-			@include media(">=desktop") {
-				height: 1em;
+			@include media("landscape") {
+				height: $padding;
 			}
 		}
 	}
@@ -186,12 +185,12 @@ $breakpoints: (phone: 320px, tablet: 768px, desktop: $scroll-width-desktop);
 		background-size: 100%;
 		display: grid;
 		grid-template-columns: 8% 1fr 8%;
-		margin: -5px 0; // to hide border radius of top and bottom.
+		margin: -$scroll-corner 0; // to hide border radius of top and bottom.
 		overflow-x: hidden;
 		overflow-y: -moz-scrollbars-none;
 		z-index: 0;
 
-		@include media(">=desktop") {
+		@include media("landscape") {
 			width: $scroll-width-desktop;
 		}
 
@@ -259,22 +258,22 @@ $breakpoints: (phone: 320px, tablet: 768px, desktop: $scroll-width-desktop);
 
 	.scroll-footer {
 		height: 100%;
-		// margin-top: -$scroll-handle-height+20;
-		top: 15%;
+		margin-top: -$scroll-handle-height-portrait;
+		top: 2 * $scroll-handle-height-portrait;
 		z-index: 1;
 
-		@include media(">=desktop") {
-			// top: 15;
-			// margin-top: -$scroll-handle-height+20;
+		@include media("landscape") {
+			margin-top: -($padding + $scroll-handle-height-landscape);
+			top: $padding + 2 * $scroll-handle-height-landscape;
 		}
 
 		.scroll-bottom {
 			animation-name: roll-scroll;
-			height: 15%;
+			height: $scroll-handle-height-portrait;
 			z-index: 2;
 
-			@include media(">=desktop") {
-				height: $scroll-handle-height;
+			@include media("landscape") {
+				height: $scroll-handle-height-landscape;
 			}
 
 			.shadow {
@@ -324,7 +323,7 @@ $breakpoints: (phone: 320px, tablet: 768px, desktop: $scroll-width-desktop);
 		vertical-align: middle;
 	}
 
-	@include media(">=desktop") {
+	@include media("landscape") {
 		display: block;
 	}
 }
