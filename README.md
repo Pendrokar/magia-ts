@@ -1,5 +1,5 @@
 # magia-ts
-Magia single page website in TypeScript
+A responsive single page HTML5 website with scripts written in TypeScript.
 
 ## Install
 Compiled files are already in the respository.
