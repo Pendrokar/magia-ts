@@ -9,7 +9,7 @@
     "@types/jquery": "^3.3.10",
     "@types/systemjs": "^0.20.6",
     "@types/youtube": "0.0.32",
-    "angular": "^1.7.4",
+    "angular": "^1.8.0",
     "browserify": "^16.2.3",
     "grunt": "^1.0.4",
     "grunt-contrib-uglify": "~1.0.1",
