@@ -41,7 +41,8 @@ System.register([], function (exports_1, context_1) {
                         .on('mouseleave', (event) => this.onPlayerMouseOut())
                         .attr('title', 'Click/Tap to unmute!');
                     // TODO: move to service
-                    $(window).on('scroll', (event) => this.onScrollTimer());
+                    window.setInterval(() => this.checkPlayerVisibility(), 150);
+                    // $(window).on('scroll', (event) => this.onScrollTimer());
                     this.checkPlayerVisibility();
                 }
                 // The API calls this function when the player's state changes.

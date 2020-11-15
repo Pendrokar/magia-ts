@@ -7,7 +7,6 @@ System.register([], function (exports_1, context_1) {
         execute: function () {
             Scroller = class Scroller {
                 constructor() {
-                    // Assign variables:
                     // Declare variables:
                     this.debug = false;
                     this.paperHeight = 1610;
@@ -15,6 +14,10 @@ System.register([], function (exports_1, context_1) {
                     this.scrollTopOffset = 240 - this.paperHeight;
                     this.scrollBottomOffset = this.scrollTopOffset - this.paperHeight;
                     this.scrollTimer = -1;
+                    // Assign variables:
+                    window.scroll({
+                        behavior: 'smooth'
+                    });
                     // Find & assign jQuery Objects to variables:
                     this.container = $('.container').eq(0);
                     this.footer = $('.footer').eq(0);
@@ -24,10 +27,9 @@ System.register([], function (exports_1, context_1) {
                     // On: Window resizing/Orientation change
                     $(window)
                         .on('resize', (event) => this.onResize())
-                        .trigger('resize');
-                    // $('.scroll-view')
-                    //	.on('scroll', (event) => this.onScroll())
-                    //	.trigger('scroll');
+                        .trigger('resize')
+                        .on('scroll', (event) => this.onScroll())
+                        .trigger('scroll');
                     if (this.debug) {
                         console.log('Scroll manager ready');
                     }
@@ -50,11 +52,9 @@ System.register([], function (exports_1, context_1) {
                         .css("background-position", "0 " + (this.paperHeight - this.scrollTopOffset + scrollTopVal) + "px");
                     this.scrollBottom
                         .css("background-position", "0 " + (this.viewHeight + 120 + scrollTopVal) + "px");
-                    this.onScrollTimer();
                 }
             };
             exports_1("Scroller", Scroller);
-            // var test = new Scroller();
         }
     };
 });

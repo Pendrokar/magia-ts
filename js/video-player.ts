@@ -46,7 +46,8 @@ export class VideoPlayer {
 			.attr('title', 'Click/Tap to unmute!');
 
 		// TODO: move to service
-		$(window).on('scroll', (event) => this.onScrollTimer());
+		window.setInterval(() => this.checkPlayerVisibility(), 150);
+		// $(window).on('scroll', (event) => this.onScrollTimer());
 
 		this.checkPlayerVisibility();
 	}

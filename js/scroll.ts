@@ -15,6 +15,9 @@ export class Scroller {
 
 	constructor() {
 		// Assign variables:
+		window.scroll({
+			behavior: 'smooth'
+		})
 
 		// Find & assign jQuery Objects to variables:
 		this.container = $('.container').eq(0);
@@ -26,11 +29,10 @@ export class Scroller {
 		// On: Window resizing/Orientation change
 		$(window)
 			.on('resize', (event) => this.onResize())
-			.trigger('resize');
-
-		// $('.scroll-view')
-		//	.on('scroll', (event) => this.onScroll())
-		//	.trigger('scroll');
+			.trigger('resize')
+			.on('scroll', (event) => this.onScroll())
+			.trigger('scroll')
+		;
 
 		if (this.debug) {
 			console.log('Scroll manager ready');
@@ -60,9 +62,5 @@ export class Scroller {
 
 		this.scrollBottom
 			.css("background-position", "0 " + (this.viewHeight + 120 + scrollTopVal) + "px");
-
-		this.onScrollTimer();
 	}
 }
-
-// var test = new Scroller();

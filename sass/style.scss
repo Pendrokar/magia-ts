@@ -2,8 +2,6 @@
 
 $padding: 1rem;
 $scroll-corner: .3em;
-// $scroll-handle-height-landscape: 120px;
-// $scroll-handle-height-portrait: 180px;
 $scroll-handle-height-landscape: 6rem;
 $scroll-handle-height-portrait: 8rem;
 $scroll-width-desktop: 1024px;
@@ -163,6 +161,9 @@ $breakpoints: (phone: 320px, tablet: 768px, desktop: $scroll-width-desktop);
 	}
 
 	.scroll-top {
+		background-position: 0 0;
+		top: -$scroll-corner;
+
 		.shadow {
 			// Permalink - use to edit and share this gradient:
 			// http://colorzilla.com/gradient-editor/#ffffff+30,000000+66&0+15,0.6+27,0.6+30,0+40,0.7+66,0.57+80,0+100
@@ -264,6 +265,7 @@ $breakpoints: (phone: 320px, tablet: 768px, desktop: $scroll-width-desktop);
 
 		@include media("landscape") {
 			margin-top: -($padding + $scroll-handle-height-landscape);
+			margin-bottom: -($padding + $scroll-handle-height-landscape);
 			top: $padding + 2 * $scroll-handle-height-landscape;
 		}
 
