@@ -34,16 +34,12 @@ System.register(["./scroll.js", "./video-player.js"], function (exports_1, conte
                 }
             });
             scroller = new scroll_js_1.Scroller();
-            $(function () {
-                scroller.onScrollTimer();
-            });
             YouTubeService = class YouTubeService {
                 constructor() {
                     this.loadAPI();
                 }
                 loadAPI() {
                     return __awaiter(this, void 0, void 0, function* () {
-                        // console.log('loadAPI');
                         // on YouTube API load
                         window.onYouTubeIframeAPIReady = function () {
                             let videoPlayers = [
@@ -60,7 +56,6 @@ System.register(["./scroll.js", "./video-player.js"], function (exports_1, conte
                         };
                         try {
                             yield context_1.import('youtubeIframeAPI'); // automatically injects a script tag
-                            // console.log('API loaded');
                         }
                         catch (e) {
                             console.error('The YouTube API failed to load: ' + e);
