@@ -35,12 +35,19 @@ class ClippyController {
             this.agentHeight = $('.clippy').outerHeight();
         });
     }
+    get lastAnimation() {
+        return this._lastAnimation;
+    }
+    set lastAnimation(value) {
+        console.log(value);
+        this._lastAnimation = value;
+    }
     /**
      * Handler that performs the necessary operations after the agent has been loaded
      */
     agentLoaded() {
         this.agent.show();
-        this.agent.play('Greet');
+        this.play('Greet');
         $(window)
             .on('resize', (event) => this.onResize());
         // Enable scroll event handler after a delay
@@ -50,15 +57,11 @@ class ClippyController {
         }, 3000);
         // Reset idle on a click on the agent
         $('.clippy')
-            .on('click', () => {
-            this.agent.closeBalloon();
-            this.createIdleTimer();
-        });
-        this.createIdleTimer(3);
+            .on('click', () => this.play('Surprised'));
     }
     onResize() {
         window.clearTimeout(this.timerIntervalId);
-        this.agent.closeBalloon();
+        this.agent.closeBalloon(true);
         this.agent.stop();
         this.agent.moveTo(document.documentElement.clientWidth - 1.2 * this.agentHeight, document.documentElement.clientHeight - 1.2 * this.agentHeight);
         // Go to idle status in # seconds
@@ -70,11 +73,11 @@ class ClippyController {
             window.clearTimeout(this.timerIntervalId);
             window.clearTimeout(this.firstScrollTimerId);
             // wait for end of scroll and explain unmute
-            this.firstScrollTimerId = window.setTimeout(() => this.explainUnmute(), 500);
+            this.firstScrollTimerId = window.setTimeout(() => this.moveToMutedVideo(), 500);
         }
     }
     // move to visible video player and explain how to unmute videos
-    explainUnmute() {
+    moveToMutedVideo() {
         let player;
         // find visible player
         $('.player').each(function () {
@@ -83,20 +86,23 @@ class ClippyController {
         let offset = player.offset();
         this.firstScroll = true;
         this.agent.stop();
-        this.agent.closeBalloon();
+        this.agent.closeBalloon(true);
         this.agent.moveTo(offset.left + player.width(), 
         // using min to ensure agent does not travel outside the window confines
-        Math.min($(window).height() - 1.5 * this.agentHeight, offset.top + player.height() / 2 - this.agentHeight / 2 - $(window).scrollTop()));
-        // TODO: animate and speak at the same time
-        // this.agent.play('GestureRight');
-        this.agent.speak("Click and hover over video to unmute!", true);
+        Math.min($(window).height() - 1.5 * this.agentHeight, offset.top + player.height() / 2 - this.agentHeight / 2 - $(window).scrollTop()), 1000, () => this.explainUnmute());
         $('.clippy-balloon')
             .on('click', () => {
-            this.agent.closeBalloon();
+            this.agent.closeBalloon(true);
             this.createIdleTimer();
         });
-        // Go to idle status in # seconds
-        this.createIdleTimer(3);
+    }
+    /**
+     * Creates a timer that plays random animations after the timeout without action has been elapsed
+     */
+    explainUnmute() {
+        this.play('GestureRight');
+        this.agent.speak("Click and hover over video to unmute!", true);
+        this.createIdleTimer();
     }
     /**
      * Creates a timer that plays random animations after the timeout without action has been elapsed
@@ -104,16 +110,32 @@ class ClippyController {
     createIdleTimer(delay = 0) {
         window.clearTimeout(this.timerIntervalId);
         this.timerIntervalId = window.setTimeout(() => {
-            this.agent.closeBalloon();
-            this.agent.play(this.getRandomIdleAnimation(), 10000, () => this.createIdleTimer());
+            let randomAnim = this.getRandomIdleAnimation();
+            if (this.agent.play(randomAnim, 10000, () => this.createIdleTimer())) {
+                this.lastAnimation = randomAnim;
+            }
         }, (delay + this.getRandomNumber(3, 10)) * 1000);
+    }
+    /**
+     * Force play animation and then idle
+     */
+    play(animation) {
+        // skip playing the same animation
+        if (animation == this.lastAnimation) {
+            return false;
+        }
+        this.agent.stop();
+        if (this.agent.play(animation, 10000, () => this.createIdleTimer(1000))) {
+            this.lastAnimation = animation;
+            return true;
+        }
+        return false;
     }
     getRandomNumber(min, max) {
         return Math.floor(Math.random() * (max - min)) + min;
     }
     getRandomIdleAnimation() {
         let rndAnimation = this.getRandomNumber(0, this.idleAnimations.length - 1);
-        console.log(this.idleAnimations[rndAnimation]);
         return this.idleAnimations[rndAnimation];
     }
 }

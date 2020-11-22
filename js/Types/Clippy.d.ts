@@ -64,7 +64,7 @@ declare module clippy {
         /**
          * Closes the current balloon
          */
-        closeBalloon(): void;
+        closeBalloon(fast: boolean): void;
 
         /**
          * Adds a delay to the current queue
@@ -78,7 +78,7 @@ declare module clippy {
          * @param y The y coordinates
          * @param duration The duration the gesture should take
          */
-        moveTo(x: number, y: number, duration?: number): void;
+        moveTo(x: number, y: number, duration?: number, finishedCallback?: () => void): void;
 
         /**
          * Gestures at the given point if the gesture animation is available
@@ -97,6 +97,10 @@ declare module clippy {
          * Stops all actions in the queue and foes back to idle mode
          */
         stop(): void;
+
+        pause(): void;
+
+        resume(): void;
     }
 
     /**

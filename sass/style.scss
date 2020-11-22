@@ -3,7 +3,7 @@
 $padding: 1rem;
 $scroll-corner: .3em;
 $scroll-handle-height-landscape: 6rem;
-$scroll-handle-height-portrait: 8rem;
+$scroll-handle-height-portrait: 7rem;
 $scroll-width-desktop: 1024px;
 
 $breakpoints: (phone: 320px, tablet: 768px, desktop: $scroll-width-desktop);
@@ -264,7 +264,7 @@ $breakpoints: (phone: 320px, tablet: 768px, desktop: $scroll-width-desktop);
 		z-index: 1;
 
 		@include media("landscape") {
-			margin-top: -($padding + $scroll-handle-height-landscape);
+			margin-top: -(2 * $padding + $scroll-handle-height-landscape);
 			margin-bottom: -($padding + $scroll-handle-height-landscape);
 			top: $padding + 2 * $scroll-handle-height-landscape;
 		}

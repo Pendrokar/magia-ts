@@ -35,6 +35,16 @@ class ClippyController {
         'Write'
     ];
 
+    private _lastAnimation : string;
+
+    get lastAnimation(): string {
+        return this._lastAnimation;
+    }
+    set lastAnimation(value: string) {
+        console.log(value);
+        this._lastAnimation = value;
+    }
+
     constructor() {
         clippy.load("Merlin", agent => {
             this.agent = agent;
@@ -48,7 +58,7 @@ class ClippyController {
      */
     private agentLoaded() {
         this.agent.show();
-        this.agent.play('Greet');
+        this.play('Greet');
 
         $(window)
             .on('resize', (event) => this.onResize())
@@ -63,20 +73,13 @@ class ClippyController {
 
         // Reset idle on a click on the agent
         $('.clippy')
-            .on('click', () => {
-                this.agent.closeBalloon();
-
-                this.createIdleTimer();
-            })
+            .on('click', () => this.play('Surprised'))
         ;
-
-
-        this.createIdleTimer(3);
     }
 
     private onResize() : void {
         window.clearTimeout(this.timerIntervalId);
-        this.agent.closeBalloon();
+        this.agent.closeBalloon(true);
         this.agent.stop();
 
         this.agent.moveTo(
@@ -96,12 +99,12 @@ class ClippyController {
             window.clearTimeout(this.firstScrollTimerId);
 
             // wait for end of scroll and explain unmute
-            this.firstScrollTimerId = window.setTimeout(() => this.explainUnmute(), 500);
+            this.firstScrollTimerId = window.setTimeout(() => this.moveToMutedVideo(), 500);
         }
     }
 
     // move to visible video player and explain how to unmute videos
-    private explainUnmute() {
+    private moveToMutedVideo() {
         let player : JQuery;
         // find visible player
         $('.player').each(function() {
@@ -111,29 +114,35 @@ class ClippyController {
         this.firstScroll = true;
 
         this.agent.stop();
-        this.agent.closeBalloon();
+        this.agent.closeBalloon(true);
         this.agent.moveTo(
             offset.left + player.width(),
             // using min to ensure agent does not travel outside the window confines
             Math.min(
                 $(window).height() - 1.5 * this.agentHeight,
                 offset.top + player.height() / 2 - this.agentHeight / 2 - $(window).scrollTop()
-            )
+            ),
+            1000,
+            () => this.explainUnmute()
         );
-        // TODO: animate and speak at the same time
-        // this.agent.play('GestureRight');
-        this.agent.speak("Click and hover over video to unmute!", true);
 
         $('.clippy-balloon')
             .on('click', () => {
-                this.agent.closeBalloon();
+                this.agent.closeBalloon(true);
 
                 this.createIdleTimer();
             })
         ;
+    }
 
-        // Go to idle status in # seconds
-        this.createIdleTimer(3);
+    /**
+     * Creates a timer that plays random animations after the timeout without action has been elapsed
+     */
+    private explainUnmute() {
+        this.play('GestureRight');
+        this.agent.speak("Click and hover over video to unmute!", true)
+
+        this.createIdleTimer();
     }
 
     /**
@@ -143,9 +152,32 @@ class ClippyController {
         window.clearTimeout(this.timerIntervalId);
 
         this.timerIntervalId = window.setTimeout(() => {
-            this.agent.closeBalloon();
-            this.agent.play( this.getRandomIdleAnimation(), 10000, () => this.createIdleTimer() );
+            let randomAnim = this.getRandomIdleAnimation();
+
+            if ( this.agent.play( randomAnim, 10000, () => this.createIdleTimer() ) )
+            {
+                this.lastAnimation = randomAnim;
+            }
         }, (delay + this.getRandomNumber(3, 10)) * 1000);
+    }
+
+    /**
+     * Force play animation and then idle
+     */
+    private play(animation: string): boolean {
+        // skip playing the same animation
+        if (animation == this.lastAnimation)
+        {
+            return false;
+        }
+        this.agent.stop();
+
+        if ( this.agent.play( animation, 10000, () => this.createIdleTimer(1000) ) )
+        {
+            this.lastAnimation = animation;
+            return true;
+        }
+        return false;
     }
 
     private getRandomNumber(min: number, max: number): number {
@@ -154,7 +186,6 @@ class ClippyController {
 
     private getRandomIdleAnimation(): string {
         let rndAnimation = this.getRandomNumber(0, this.idleAnimations.length - 1);
-        console.log(this.idleAnimations[rndAnimation]);
 
         return this.idleAnimations[rndAnimation];
     }
