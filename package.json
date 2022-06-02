@@ -4,7 +4,7 @@
   "devDependencies": {
     "@angular/cli": "^8.1.2",
     "@angular/common": "^6.1.9",
-    "@angular/core": "^6.1.9",
+    "@angular/core": "^11.0.5",
     "@types/df-visible": "0.0.7",
     "@types/jquery": "^3.3.10",
     "@types/systemjs": "^0.20.6",
