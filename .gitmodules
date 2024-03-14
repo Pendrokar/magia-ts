@@ -1,0 +1,3 @@
+[submodule "clippyjs"]
+	path = clippyjs
+	url = https://github.com/Pendrokar/clippyjs
