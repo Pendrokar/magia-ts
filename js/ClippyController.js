@@ -33,7 +33,7 @@ class ClippyController {
             this.agent = agent;
             this.agentLoaded();
             this.agentHeight = $('.clippy').outerHeight();
-        }, (error) => {}, '/clippyjs/assets/agents/');
+        }, (error) => {}, './clippyjs/assets/agents/');
     }
     get lastAnimation() {
         return this._lastAnimation;
